@@ -3,9 +3,11 @@ package co.edu.unbosque.model;
 public class ArbolAVL {
 
 	private Nodo raiz;
+	private String orden;
 
 	public ArbolAVL() {
 		raiz = null;
+		orden = "";
 	}
 
 	public Nodo buscar(int v, Nodo n) {
@@ -68,7 +70,8 @@ public class ArbolAVL {
 	public Nodo insertar(Nodo nodo, int v) {
 
 		if (nodo == null)
-			return (new Nodo(v));
+			return new Nodo(v);
+		
 		if (v < nodo.getValor())
 			nodo.setHijoIzq(insertar(nodo.getHijoIzq(), v));
 		else if (v > nodo.getValor())
@@ -96,7 +99,7 @@ public class ArbolAVL {
 			return rotacionIzq(nodo);
 		}
 
-		return nodo;
+		return raiz;
 	}
 
 	public Nodo minValNodo(Nodo nodo) {
@@ -170,7 +173,7 @@ public class ArbolAVL {
 
 	public void preOrder(Nodo n) {
 		if (n != null) {
-			System.out.print(n.getValor() + " ");
+			orden+= n.getValor() + "\t";
 			preOrder(n.getHijoIzq());
 			preOrder(n.getHijoDer());
 		}
@@ -179,7 +182,7 @@ public class ArbolAVL {
 	public void inOrder(Nodo n) {
 		if (n != null) {
 			inOrder(n.getHijoIzq());
-			System.out.print(n.getValor() + " ");
+			orden+= n.getValor() + "\t";
 			inOrder(n.getHijoDer());
 		}
 	}
@@ -188,8 +191,32 @@ public class ArbolAVL {
 		if (n != null) {
 			posOrder(n.getHijoIzq());
 			posOrder(n.getHijoDer());
-			System.out.print(n.getValor() + " ");
+			orden+= n.getValor() + "\t";
 		}
+	}
+	
+	public Nodo insertar(int valor) {
+		return insertar(raiz,valor);
+	}
+	
+	
+
+	public Nodo getRaiz() {
+		return raiz;
+	}
+
+	public void setRaiz(Nodo raiz) {
+		this.raiz = raiz;
+	}
+	
+	
+
+	public String getOrden() {
+		return orden;
+	}
+
+	public void setOrden(String orden) {
+		this.orden = orden;
 	}
 
 	public static void main(String[] args) {
@@ -205,12 +232,14 @@ public class ArbolAVL {
 		arbolito.raiz = arbolito.insertar(arbolito.raiz, 32);
 
 		arbolito.preOrder(arbolito.raiz);
-
+		
+		System.out.println(arbolito.getOrden());
+		
 		arbolito.eliminar(arbolito.raiz, 16);
 
-		System.out.println("");
-
 		arbolito.preOrder(arbolito.raiz);
+		
+
 
 	}
 }
