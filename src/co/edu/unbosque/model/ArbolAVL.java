@@ -99,7 +99,7 @@ public class ArbolAVL {
 			return rotacionIzq(nodo);
 		}
 
-		return raiz;
+		return nodo;
 	}
 
 	public Nodo minValNodo(Nodo nodo) {
@@ -131,7 +131,6 @@ public class ArbolAVL {
 					temp = r.getHijoIzq();
 
 				if (temp == null) {
-					temp = r;
 					r = null;
 				} else
 					r = temp;
@@ -155,7 +154,7 @@ public class ArbolAVL {
 		if (balance > 1 && obtenerBalance(r.getHijoIzq()) >= 0)
 			return rotacionDer(r);
 
-		if (balance > 1 && obtenerBalance(r.getHijoDer()) < 0) {
+		if (balance > 1 && obtenerBalance(r.getHijoIzq()) < 0) {
 			r.setHijoIzq(rotacionIzq(r.getHijoIzq()));
 			return rotacionDer(r);
 		}
@@ -173,7 +172,7 @@ public class ArbolAVL {
 
 	public void preOrder(Nodo n) {
 		if (n != null) {
-			orden+= n.getValor() + "\t";
+			orden+= n.getValor() + " \t";
 			preOrder(n.getHijoIzq());
 			preOrder(n.getHijoDer());
 		}
@@ -182,7 +181,7 @@ public class ArbolAVL {
 	public void inOrder(Nodo n) {
 		if (n != null) {
 			inOrder(n.getHijoIzq());
-			orden+= n.getValor() + "\t";
+			orden+= n.getValor() + " \t";
 			inOrder(n.getHijoDer());
 		}
 	}
@@ -191,7 +190,7 @@ public class ArbolAVL {
 		if (n != null) {
 			posOrder(n.getHijoIzq());
 			posOrder(n.getHijoDer());
-			orden+= n.getValor() + "\t";
+			orden+= n.getValor() + " \t";
 		}
 	}
 	
@@ -217,29 +216,5 @@ public class ArbolAVL {
 
 	public void setOrden(String orden) {
 		this.orden = orden;
-	}
-
-	public static void main(String[] args) {
-
-		ArbolAVL arbolito = new ArbolAVL();
-
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 20);
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 34);
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 16);
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 6);
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 36);
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 14);
-		arbolito.raiz = arbolito.insertar(arbolito.raiz, 32);
-
-		arbolito.preOrder(arbolito.raiz);
-		
-		System.out.println(arbolito.getOrden());
-		
-		arbolito.eliminar(arbolito.raiz, 16);
-
-		arbolito.preOrder(arbolito.raiz);
-		
-
-
 	}
 }

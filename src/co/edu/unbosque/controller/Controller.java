@@ -52,7 +52,7 @@ public class Controller implements ActionListener {
 					
 					
 					view.getPanelArbol().setObjArbol(arbolAvl.getRaiz());
-					
+					view.getPanelMenu().getTxtAgregar().setText("");
 				}
 			}
 			
@@ -75,10 +75,12 @@ public class Controller implements ActionListener {
 						arbolAvl.setOrden("");
 						arbolAvl.posOrder(arbolAvl.getRaiz());
 						view.getPanelMenu().getPostOrden().setText("PostOrden "+arbolAvl.getOrden());
+						
 					}
 					else {
 						JOptionPane.showMessageDialog(null,"No se puede eliminar, el nodo de valor "+valorNodo+" no existe");
 					}
+					
 				}
 			}
 			
