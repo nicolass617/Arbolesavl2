@@ -4,6 +4,7 @@ public class ArbolAVL {
 
 	private Nodo raiz;
 	private String orden;
+	private boolean existe = true;
 
 	public ArbolAVL() {
 		raiz = null;
@@ -11,7 +12,7 @@ public class ArbolAVL {
 	}
 
 	public Nodo buscar(int v, Nodo n) {
-		if (raiz == null) {
+		if (n == null) {
 			return null;
 		} else if (n.getValor() == v) {
 			return n;
@@ -45,7 +46,7 @@ public class ArbolAVL {
 
 	public Nodo rotacionDer(Nodo y) {
 		Nodo x = y.getHijoIzq();
-		Nodo t2 = y.getHijoDer();
+		Nodo t2 = x.getHijoDer();
 
 		x.setHijoDer(y);
 		y.setHijoIzq(t2);
@@ -83,18 +84,18 @@ public class ArbolAVL {
 
 		int balance = obtenerBalance(nodo);
 
-		if (balance > 1 && v < nodo.getHijoIzq().getValor())
+		if (nodo.getHijoIzq() != null && balance > 1 && v < nodo.getHijoIzq().getValor())
 			return rotacionDer(nodo);
 
-		if (balance < -1 && v > nodo.getHijoIzq().getValor())
+		if (nodo.getHijoIzq() != null && balance < -1 && v > nodo.getHijoIzq().getValor())
 			return rotacionIzq(nodo);
 
-		if (balance > 1 && v > nodo.getHijoIzq().getValor()) {
+		if (nodo.getHijoIzq() != null && balance > 1 && v > nodo.getHijoIzq().getValor()) {
 			nodo.setHijoIzq(rotacionIzq(nodo.getHijoIzq()));
 			return rotacionDer(nodo);
 		}
 
-		if (balance < -1 && v < nodo.getHijoDer().getValor()) {
+		if (nodo.getHijoDer() != null && balance < -1 && v < nodo.getHijoDer().getValor()) {
 			nodo.setHijoDer(rotacionDer(nodo.getHijoDer()));
 			return rotacionIzq(nodo);
 		}
@@ -112,6 +113,12 @@ public class ArbolAVL {
 	}
 
 	public Nodo eliminar(Nodo r, int v) {
+		if(buscar(v, r) == null) {
+			existe = false;
+			return null;
+		}else {
+			existe = true;
+		}
 		if (r == null)
 			return r;
 
@@ -125,12 +132,13 @@ public class ArbolAVL {
 
 			if ((r.getHijoIzq() == null) || (r.getHijoDer() == null)) {
 				Nodo temp = null;
-				if (temp == r.getHijoDer())
+				if (temp == r.getHijoIzq())
 					temp = r.getHijoDer();
 				else
 					temp = r.getHijoIzq();
 
 				if (temp == null) {
+					temp = r;
 					r = null;
 				} else
 					r = temp;
@@ -217,4 +225,14 @@ public class ArbolAVL {
 	public void setOrden(String orden) {
 		this.orden = orden;
 	}
+
+	public boolean isExiste() {
+		return existe;
+	}
+
+	public void setExiste(boolean existe) {
+		this.existe = existe;
+	}
+	
+	
 }

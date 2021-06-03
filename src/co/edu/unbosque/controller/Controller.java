@@ -63,7 +63,11 @@ public class Controller implements ActionListener {
 				}else {
 					int valorNodo = Integer.parseInt(view.getPanelMenu().getTxtEliminar().getText());
 					Nodo eliminado = arbolAvl.eliminar(arbolAvl.getRaiz(), valorNodo);
-					if(eliminado!=null) {
+					
+					if(eliminado== null && arbolAvl.isExiste()==false) {
+						JOptionPane.showMessageDialog(null,"No se puede eliminar, el nodo de valor "+valorNodo+" no existe");
+					}else {
+						arbolAvl.setRaiz(eliminado);
 						view.getPanelArbol().setObjArbol(arbolAvl.getRaiz());
 						
 						arbolAvl.setOrden("");
@@ -75,11 +79,10 @@ public class Controller implements ActionListener {
 						arbolAvl.setOrden("");
 						arbolAvl.posOrder(arbolAvl.getRaiz());
 						view.getPanelMenu().getPostOrden().setText("PostOrden "+arbolAvl.getOrden());
+				
+					}
 						
-					}
-					else {
-						JOptionPane.showMessageDialog(null,"No se puede eliminar, el nodo de valor "+valorNodo+" no existe");
-					}
+						
 					
 				}
 			}
